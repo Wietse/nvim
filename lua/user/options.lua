@@ -10,7 +10,7 @@ opt.mouse = 'a'              -- Enable mouse support
 opt.backup = false           -- don't make a backup before writing a file
 opt.swapfile = false         -- don't use a swapfile for the buffer
 
-g.python3_host_prog = vim.fn.expand("$PYENV_ROOT/versions/3.9.10/envs/nvim-py3.9.10/bin/python")
+g.python3_host_prog = vim.fn.expand("$PYENV_ROOT/versions/nvim-py3.12.6/bin/python")
 
 
 -- User interface
@@ -41,7 +41,8 @@ opt.cursorline = false            -- highlight the line the cursor is on
 opt.number = true                -- show line numbers
 opt.signcolumn = "yes"           -- always show the 'sign column' (e.g. to indicate errors)
 opt.scrolloff = 2                -- number of lines to keep above and below the cursor when scrolling vertically
-opt.sidescrolloff = 8            -- number of columns to keep right and left of the cursor when scrolling horizontally
+opt.sidescrolloff = 2            -- number of columns to keep right and left of the cursor when scrolling horizontally
+opt.completeopt = "menu,menuone,noinsert,noselect"
 opt.wildmode = "longest,full,full"            -- complete the next full match
 opt.wildignorecase = true        -- ignore case when comleting file names
 opt.wildignore = ".git,*.o,*~,*.pyc,*.zip,__pycache__,*.DS_Store"    -- list of filepatterns to ignore for file completion
@@ -52,8 +53,13 @@ opt.hlsearch = true              -- highlight the search pattern
 opt.smartcase = true             -- case insensitive search except when using an uppercase char
 opt.showmatch = true             -- show matching pairs of brackets
 opt.smartindent = true           -- be smarter about autoindent
-opt.colorcolumn = tostring(txtwidth)   -- line length marker
-opt.listchars = "tab:»·,trail:·,nbsp:+"   -- show these chars for <Tab> and for trailing whitespace
+opt.colorcolumn = { tostring(txtwidth) }   -- line length marker
+-- opt.listchars = "tab:»·,trail:·,nbsp:+"   -- show these chars for <Tab> and for trailing whitespace
+opt.listchars = {
+  tab = "»·",
+  trail = "·",
+  nbsp = "+",
+} -- show these chars for <Tab> and for trailing whitespace
 opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkon100"
 
 

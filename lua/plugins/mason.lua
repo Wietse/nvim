@@ -11,6 +11,7 @@ return {
     },
   },
   opts = {
-    ensure_installed = require("user.languages").servers
+    ensure_installed = require("user.languages").servers,
+    automatic_installation = { exclude = { "rust_analyzer", "pylsp" } },
   },
 }

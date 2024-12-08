@@ -19,6 +19,11 @@ return {
     end
 
     cmp.setup({
+      completion = {
+        keyword_length = 1,
+        completeopt = "menu,menuone,noselect,noinsert",
+        preselect = "none",
+      },
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
@@ -55,7 +60,7 @@ return {
           i = cmp.mapping.abort(),
           c = cmp.mapping.close(),
         },
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<CR>"] = cmp.mapping.confirm({ select = false }),
       }),
       sources = cmp.config.sources({
         { name = "nvim_lsp" },   -- language servers
