@@ -12,6 +12,9 @@ return {
     -- { "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "Help" },
     -- { "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "Find keymaps" },
     -- { "<leader>fb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
+    { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "List open buffers" },
+    { "<leader>fg", "<cmd>Telescope git_status<cr>", desc = "Git status" },
+    { "<leader>fs", "<cmd>Telescope git_stash<cr>", desc = "Git stash" }
   },
   config = function ()
     local actions = require("telescope.actions")

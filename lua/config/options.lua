@@ -10,7 +10,7 @@ opt.mouse = 'a'              -- Enable mouse support
 opt.backup = false           -- don't make a backup before writing a file
 opt.swapfile = false         -- don't use a swapfile for the buffer
 
-g.python3_host_prog = vim.fn.expand("$PYENV_ROOT/versions/nvim-py3.12.6/bin/python")
+g.python3_host_prog = vim.fn.expand("$PYENV_ROOT/versions/nvim-py3.12/bin/python")
 
 
 -- User interface
@@ -27,6 +27,8 @@ opt.splitright = true            -- horizontal splits to the right
 opt.switchbuf:append "useopen"   -- switch to the first window where the specified buffer is open
 opt.diffopt:append "vertical"    -- prefer vertical splits for diffs
 opt.diffopt:append "context:25"  -- show a lot of context around the changed lines
+opt.diffopt:append "algorithm:patience"  -- Use the specified diff algorithm with the internal diff engine
+opt.diffopt:append "indent-heuristic"  -- Use the indent heuristic for the internal diff library
 
 local txtwidth = 120
 

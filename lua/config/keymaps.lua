@@ -7,9 +7,9 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 
+-- This is now done with nvim-dap
 -- set a python breakpoint
--- nmap <leader>b Oimport pudb; pudb.set_trace()  # BREAKPOINT<esc>^
-map('n', '<leader>b', 'Oimport pudb; pudb.set_trace()  # BREAKPOINT<esc>')
+-- map('n', '<leader>b', 'Oimport pudb; pudb.set_trace()  # BREAKPOINT<esc>')
 
 -- Close window
 map('n', '<leader>q', ':q<cr>')

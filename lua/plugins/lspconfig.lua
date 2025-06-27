@@ -4,7 +4,15 @@ return {
   dependencies = "folke/neodev.nvim",
   opts = {
     servers = {
-      rust_analyzer = {},
+      rust_analyzer = {
+        mason = false,
+      },
+      python_lsp_server = {
+        mason = false,
+      },
+      pylsp = {
+        mason = false,
+      },
     },
     setup = {
       rust_analyzer = function()
@@ -41,16 +49,13 @@ return {
       },
     })
 
-    local diagnostic_opts = vim.diagnostic.config()
-    if diagnostic_opts then
-      for _, sign in ipairs(vim.tbl_get(diagnostic_opts, "signs", "values") or {}) do
-        vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
-      end
-    end
+    -- local diagnostic_opts = vim.lsp.diagnostic.config()
+    -- if diagnostic_opts then
+    --   for _, sign in ipairs(vim.tbl_get(diagnostic_opts, "signs", "values") or {}) do
+    --     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
+    --   end
+    -- end
 
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-    vim.lsp.handlers["textDocument/signatureHelp"] =
-    vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
     require("lspconfig.ui.windows").default_options.border = "rounded"
 
     local on_attach = function(client, bufnr)
@@ -60,14 +65,14 @@ return {
       keymap("n", "gD", "<cmd>Telescope lsp_type_definitions<CR>", opts)
       keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
       keymap("n", "gI", "<cmd>Telescope lsp_implementations<CR>", opts)
-      keymap("n", "K", vim.lsp.buf.hover, opts)
-      keymap("n", "gl", vim.diagnostic.open_float, opts)
-      keymap("n", "]d", vim.diagnostic.goto_next, opts)
-      keymap("n", "[d", vim.diagnostic.goto_prev, opts)
-      keymap("n", "<leader>a", vim.lsp.buf.code_action, opts)
-      keymap("n", "<leader>r", vim.lsp.buf.rename, opts)
-      keymap("n", "<leader>s", vim.lsp.buf.signature_help, opts)
-      keymap("n", "<leader>f", vim.lsp.buf.format, opts)
+      keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+      keymap("n", "gl", "<cmd>lua vim.lsp.diagnostic.open_float<CR>", opts)
+      keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next<CR>", opts)
+      keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev<CR>", opts)
+      keymap("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action<CR>", opts)
+      keymap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename<CR>", opts)
+      keymap("n", "<leader>s", "<cmd>lua vim.lsp.buf.signature_help<CR>", opts)
+      keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.format<CR>", opts)
     end
 
     local common_capabilities = function()
@@ -78,6 +83,7 @@ return {
 
     local servers = require("user.languages").servers
     table.insert(servers, "pylsp")
+    table.insert(servers, "ruff")
     for _, server in pairs(servers) do
       local opts = {
         on_attach = on_attach,
@@ -92,6 +98,7 @@ return {
       end
 
       if server == "lua_ls" then
+        vim.print(settings)
         require("neodev").setup {}
       end
 

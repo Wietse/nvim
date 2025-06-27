@@ -1,3 +1,9 @@
+## Luarocks
+
+```
+sudo apt install luarocks
+```
+
 ## Debugging
 
 Show the configuration of an LSP client attached to the buffer:

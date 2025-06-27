@@ -10,8 +10,12 @@ local usercmd = vim.api.nvim_create_user_command   -- Create user command
 
 -- Remove whitespace on save
 autocmd('BufWritePre', {
-  pattern = '',
-  command = ":%s/\\s\\+$//e"
+  pattern = {
+    'xml', 'html', 'xhtml', 'css', 'scss', 'javascript', 'typescript',
+    'yaml', 'lua', 'json', 'python', 'rust', 'c', 'cpp'
+  },
+  -- command = ":%s/\\s\\+$//e"
+  command = ":let w:wv = winsaveview() | %s/\\s\\+$//e | call winrestview(w:wv)"
 })
 
 -- Disable line length marker
