@@ -1,22 +1,5 @@
 return {
-  servers = {
-    "bashls",
-    "dockerls",
-    "jsonls",
-    "lua_ls",
-    "marksman",
-    "sqlls",
-    "ts_ls",
-    "vimls",
-    "volar",
-    "yamlls",
-    -- "codelldb",  -- rust debugging
-    -- "cpptools",  -- rust debugging
-    -- "pylsp",
-    -- "ruff",
-    -- "rust_analyzer",
-  },
-
+  textwidth = 20,
   parsers = {
     "bash",
     "c",
@@ -52,7 +35,4 @@ return {
     "xml",
     "yaml",
   },
-
-  formatters = {
-  }
 }
