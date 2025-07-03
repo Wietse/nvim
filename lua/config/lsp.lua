@@ -2,7 +2,8 @@
 local servers = {
   "lua_ls",
   "pylsp",
-  -- "rust_analyzer",
+  "ruff",
+  "rust_analyzer",
 }
 
 -- Set custom diagnostic signs and options

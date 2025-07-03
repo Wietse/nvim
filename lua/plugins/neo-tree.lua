@@ -11,7 +11,7 @@ return {
     { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Explorer" },
   },
   config = function()
-    local icons = require("lua.config.icons") -- same icon setup you already use
+    local icons = require("config.icons")
 
     require("neo-tree").setup({
       close_if_last_window = true,

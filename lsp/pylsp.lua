@@ -1,8 +1,13 @@
+local utils = require("utils")
+
+local binary = utils.lsp_resolve_binary("pylsp")
+if not binary then return end
+
 return {
-  cmd = { "pylsp" },
+  cmd = { binary },
   filetypes = { "python" },
   root_markers = { ".git", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt" },
-  on_attach = require("utils").on_attach,
+  on_attach = utils.on_attach,
 
   settings = {
     pylsp = {
