@@ -11,7 +11,7 @@ return {
     },
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = require("lua.config.constants").parsers,
+        ensure_installed = require("config.constants").parsers,
         auto_install = true,
         highlight = { enable = true },
         indent = { enable = true },

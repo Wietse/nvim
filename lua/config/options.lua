@@ -2,7 +2,7 @@
 
 -- Default options are not included (see :h nvim-defaults)
 
-local C = require("lua.config.constants")
+local C = require("config.constants")
 
 local g = vim.g
 local opt = vim.opt
