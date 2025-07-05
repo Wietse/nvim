@@ -4,7 +4,7 @@ local binary = utils.lsp_resolve_binary("ruff")
 if not binary then return end
 
 return {
-  cmd = { binary },
+  cmd = { binary, "server" },
   filetypes = { "python" },
   root_markers = { ".git", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt" },
   on_attach = utils.on_attach,

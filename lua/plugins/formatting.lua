@@ -12,8 +12,11 @@ return {
 
         -- Formatter config per filetype
         formatters_by_ft = {
+          bash = { "shfmt" },
+          sh = { "shfmt" },
           lua = { "stylua" },
           python = { "ruff" },
+          rust = { "rustfmt" },
         },
 
         -- Optionally override formatters

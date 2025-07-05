@@ -36,7 +36,8 @@ function M.lsp_resolve_binary(bin, label)
     M.warn(bin .. " binary not found", label)
     return
   end
-  vim.schedule(function() M.info('✅ Starting LSP "' .. label .. '" with binary: ' .. binary) end)
+  -- vim.schedule(function() M.info('✅ Starting LSP "' .. label .. '" with binary: ' .. binary) end)
+  return binary
 end
 
 -- Shared on_attach callback for all LSPs

@@ -1,9 +1,16 @@
 -- List of LSP servers to load
 local servers = {
+  "bashls",
+  "dockerls",
+  "jsonls",
   "lua_ls",
+  "marksman",
   "pylsp",
   "ruff",
   "rust_analyzer",
+  "sqruff",
+  "vtsls",
+  "yamlls",
 }
 
 -- Set custom diagnostic signs and options
