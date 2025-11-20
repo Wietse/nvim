@@ -1,18 +1,5 @@
--- List of LSP servers to load
-local servers = {
-  "bashls",
-  "dockerls",
-  "htmlls",
-  "jsonls",
-  "lua_ls",
-  "marksman",
-  "pylsp",
-  "ruff",
-  "rust_analyzer",
-  "sqruff",
-  "vtsls",
-  "yamlls",
-}
+-- Dynamically load all servers defined in the lsp/ directory
+local servers = require("utils").scan_lsp_servers()
 
 -- Set custom diagnostic signs and options
 local icons = require("config.icons")

@@ -119,4 +119,26 @@ function M.preserve_cursor(cmd)
   vim.fn.winrestview(win_view)
 end
 
+--- Scans the 'lsp/' directory in stdpath('config') and returns a list of server names
+-- @return table: List of strings (e.g., { "bashls", "lua_ls", ... })
+function M.scan_lsp_servers()
+  local config_path = vim.fn.stdpath("config")
+  local lsp_path = vim.fs.joinpath(config_path, "lsp")
+
+  -- Return empty if lsp dir doesn't exist
+  if vim.fn.isdirectory(lsp_path) == 0 then return {} end
+
+  -- Glob all .lua files in the lsp directory
+  local files = vim.fn.glob(vim.fs.joinpath(lsp_path, "*.lua"), false, true)
+  local servers = {}
+
+  for _, file in ipairs(files) do
+    -- :t = tail (filename), :r = root (remove extension)
+    local server_name = vim.fn.fnamemodify(file, ":t:r")
+    table.insert(servers, server_name)
+  end
+
+  return servers
+end
+
 return M
