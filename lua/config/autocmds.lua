@@ -69,16 +69,9 @@ autocmd("Filetype", {
   command = "setlocal shiftwidth=2 tabstop=2",
 })
 
-
-function _G.preserve_cursor(cmd)
-  local win_view = vim.fn.winsaveview()
-  vim.cmd(cmd)
-  vim.fn.winrestview(win_view)
-end
-
 -- FormatXML command
 vim.api.nvim_create_user_command("FormatXML", function()
-  _G.preserve_cursor(
+  utils.preserve_cursor(
     ':%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"'
   )
 end, {
@@ -87,7 +80,7 @@ end, {
 
 -- FormatJSON command
 vim.api.nvim_create_user_command("FormatJSON", function()
-  _G.preserve_cursor(":%!jq .")
+  utils.preserve_cursor(":%!jq .")
 end, {
   desc = "Formats JSON buffer with jq",
 })
@@ -116,6 +109,35 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.schedule(function()
         vim.lsp.buf_detach_client(bufnr, client.id)
       end)
+    end
+  end,
+})
+
+-- Load project-local configuration
+autocmd("BufEnter", {
+  pattern = "*.yaml,*.yml",
+  callback = function()
+    local project_config = vim.fs.root(0, ".nvim.lua")
+    if project_config then
+      local config_file = project_config .. "/.nvim.lua"
+      if vim.fn.filereadable(config_file) == 1 then
+        local ok, config = pcall(dofile, config_file)
+        if ok and config.yaml_schemas then
+          -- Merge project schemas into LSP config
+          local clients = vim.lsp.get_clients({ name = "yamlls" })
+          for _, client in ipairs(clients) do
+            local current = client.config.settings.yaml.schemas or {}
+            client.config.settings.yaml.schemas = vim.tbl_extend(
+              "force",
+              current,
+              config.yaml_schemas
+            )
+            client.notify("workspace/didChangeConfiguration", {
+              settings = client.config.settings
+            })
+          end
+        end
+      end
     end
   end,
 })

@@ -6,6 +6,10 @@ local utils = require("utils")
 local binary = utils.lsp_resolve_binary("yaml-language-server")
 if not binary then return end
 
+local default_schemas = {
+  ["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "docker-compose*.{yml,yaml}",
+}
+
 return {
   cmd = { binary, "--stdio" },
   filetypes = { "yaml", "yml" },
@@ -18,10 +22,12 @@ return {
       hover = true,
       completion = true,
       schemaStore = { enable = false },
-      schemas = {
-        ["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "docker-compose*.{yml,yaml}",
-        ["/home/wja/projects/anet/anet-be/genfest/src/genfest/schema/scenario.schema.json"] = "*.scen.{yml,yaml}",
-      },
+      -- Will be merged with project-local schemas via autocmd
+      schemas = default_schemas,
+      -- schemas = {
+      --   ["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "docker-compose*.{yml,yaml}",
+      --   ["/home/wja/projects/anet/anet-be/genfest/src/genfest/schema/scenario.schema.json"] = "*.scen.{yml,yaml}",
+      -- },
     },
   },
 }

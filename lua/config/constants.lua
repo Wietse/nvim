@@ -1,5 +1,5 @@
 return {
-  textwidth = 20,
+  textwidth = 90,
   parsers = {
     "bash",
     "c",

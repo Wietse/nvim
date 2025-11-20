@@ -11,7 +11,15 @@ opt.mouse = "a" -- Enable mouse support
 opt.backup = false -- don't make a backup before writing a file
 opt.swapfile = false -- don't use a swapfile for the buffer
 
-g.python3_host_prog = vim.fn.expand("$PYENV_ROOT/versions/nvim-py3.12/bin/python")
+-- Set Python host from environment or find system python3
+g.python3_host_prog = vim.env.NVIM_PYTHON_HOST or vim.fn.exepath("python3")
+
+if g.python3_host_prog == "" or vim.fn.filereadable(g.python3_host_prog) == 0 then
+  vim.notify(
+    "Python host not configured. Set NVIM_PYTHON_HOST environment variable.",
+    vim.log.levels.ERROR
+  )
+end
 
 -- User interface
 
@@ -34,7 +42,7 @@ opt.shiftwidth = 4 -- shift by 4 spaces when shifting lines with >> or <<
 opt.tabstop = 4 -- number of spaces to use for a <Tab>
 opt.softtabstop = 4 -- number of spaces to use for softtab
 opt.expandtab = true -- always expand <Tab> to 4 spaces (don't use <Tab>)
-opt.textwidth = C.txtwidth -- when appropriate, break lines after a maximum width of `textwidth`
+opt.textwidth = C.textwidth -- when appropriate, break lines after a maximum width of `textwidth`
 -- opt.formatoptions:remove({ "c", "r", "o" })  -- see :h fo-table
 
 opt.cursorline = false -- highlight the line the cursor is on
@@ -53,7 +61,7 @@ opt.hlsearch = true -- highlight the search pattern
 opt.smartcase = true -- case insensitive search except when using an uppercase char
 opt.showmatch = true -- show matching pairs of brackets
 opt.smartindent = true -- be smarter about autoindent
-opt.colorcolumn = { C.txtwidth } -- line length marker
+opt.colorcolumn = { C.textwidth } -- line length marker
 -- opt.listchars = "tab:»·,trail:·,nbsp:+"   -- show these chars for <Tab> and for trailing whitespace
 opt.listchars = {
   tab = "»·",

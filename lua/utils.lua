@@ -115,4 +115,10 @@ function M.on_attach(client, bufnr)
   vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
 end
 
+function M.preserve_cursor(cmd)
+  local win_view = vim.fn.winsaveview()
+  vim.cmd(cmd)
+  vim.fn.winrestview(win_view)
+end
+
 return M
