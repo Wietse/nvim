@@ -7,20 +7,35 @@ return {
   cmd = "Telescope",
   keys = {
     -- { "<C-p>", "<cmd>Telescope find_files<CR>", desc = "Find Files" },
-    { "<C-p>", "<cmd>lua require'telescope.builtin'.find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>", desc = "Find Files" },
+    {
+      "<C-p>",
+      "<cmd>lua require'telescope.builtin'.find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>",
+      desc = "Find Files",
+    },
     { "\\", "<cmd>Telescope live_grep<CR>", desc = "Find a string" },
     -- { "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "Help" },
     { "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "Find keymaps" },
     -- { "<leader>fb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
     { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "List open buffers" },
     { "<leader>fg", "<cmd>Telescope git_status<cr>", desc = "Git status" },
-    { "<leader>fs", "<cmd>Telescope git_stash<cr>", desc = "Git stash" }
+    { "<leader>fs", "<cmd>Telescope git_stash<cr>", desc = "Git stash" },
   },
-  config = function ()
+  config = function()
     local actions = require("telescope.actions")
-    require("telescope").setup {
+    require("telescope").setup({
       defaults = {
-        vimgrep_arguments = { 'rg', '--hidden', '-g', '!.git', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case' },
+        vimgrep_arguments = {
+          "rg",
+          "--hidden",
+          "-g",
+          "!.git",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+        },
         mappings = {
           i = {
             ["<C-t>"] = actions.send_selected_to_qflist + actions.open_qflist,
@@ -35,6 +50,6 @@ return {
           case_mode = "smart_case", -- or "ignore_case" or "respect_case"
         },
       },
-    }
-  end
+    })
+  end,
 }

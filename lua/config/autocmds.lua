@@ -5,8 +5,8 @@
 
 local utils = require("utils")
 
-local augroup = vim.api.nvim_create_augroup      -- Create/get autocommand group
-local autocmd = vim.api.nvim_create_autocmd      -- Create autocommand
+local augroup = vim.api.nvim_create_augroup -- Create/get autocommand group
+local autocmd = vim.api.nvim_create_autocmd -- Create autocommand
 local usercmd = vim.api.nvim_create_user_command -- Create user command
 
 -- This is handled by the conform and/or lsp plugins
@@ -70,27 +70,27 @@ autocmd("Filetype", {
 })
 
 -- FormatXML command
-vim.api.nvim_create_user_command("FormatXML", function()
-  utils.preserve_cursor(
-    ':%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"'
-  )
-end, {
-  desc = "Formats JSON buffer with jq",
-})
+vim.api.nvim_create_user_command(
+  "FormatXML",
+  function()
+    utils.preserve_cursor(
+      ':%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"'
+    )
+  end,
+  {
+    desc = "Formats JSON buffer with jq",
+  }
+)
 
 -- FormatJSON command
-vim.api.nvim_create_user_command("FormatJSON", function()
-  utils.preserve_cursor(":%!jq .")
-end, {
+vim.api.nvim_create_user_command("FormatJSON", function() utils.preserve_cursor(":%!jq .") end, {
   desc = "Formats JSON buffer with jq",
 })
 
 -- Kill diagnostics as soon as a fugitive buffer opens
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
   pattern = "fugitive://*",
-  callback = function(args)
-    vim.diagnostic.enable(false, { bufnr = args.buf })
-  end,
+  callback = function(args) vim.diagnostic.enable(false, { bufnr = args.buf }) end,
 })
 
 -- If an LSP *does* attach, immediately detach pylsp + ruff for fugitive buffers
@@ -106,9 +106,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       -- Turn off diagnostics for good measure
       vim.diagnostic.enable(false, { bufnr = bufnr })
       -- Detach the client from this buffer
-      vim.schedule(function()
-        vim.lsp.buf_detach_client(bufnr, client.id)
-      end)
+      vim.schedule(function() vim.lsp.buf_detach_client(bufnr, client.id) end)
     end
   end,
 })
@@ -127,13 +125,10 @@ autocmd("BufEnter", {
           local clients = vim.lsp.get_clients({ name = "yamlls" })
           for _, client in ipairs(clients) do
             local current = client.config.settings.yaml.schemas or {}
-            client.config.settings.yaml.schemas = vim.tbl_extend(
-              "force",
-              current,
-              config.yaml_schemas
-            )
+            client.config.settings.yaml.schemas =
+              vim.tbl_extend("force", current, config.yaml_schemas)
             client.notify("workspace/didChangeConfiguration", {
-              settings = client.config.settings
+              settings = client.config.settings,
             })
           end
         end

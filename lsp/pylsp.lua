@@ -20,11 +20,11 @@ return {
     end
     if not vim.uv.fs_stat(name) then return end
 
-    local root = vim.fs.root(bufnr, { ".git", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt" })
-        or vim.uv.cwd()
-    if root and root ~= "" and not root:match("^%.%/?$") then
-      on_dir(vim.fs.normalize(root))
-    end
+    local root = vim.fs.root(
+      bufnr,
+      { ".git", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt" }
+    ) or vim.uv.cwd()
+    if root and root ~= "" and not root:match("^%.%/?$") then on_dir(vim.fs.normalize(root)) end
   end,
 
   settings = {

@@ -15,7 +15,9 @@ return {
     local has_words_before = function()
       unpack = unpack or table.unpack
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-      return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+      return col ~= 0
+        and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s")
+          == nil
     end
 
     cmp.setup({
@@ -25,9 +27,7 @@ return {
         preselect = "none",
       },
       snippet = {
-        expand = function(args)
-          luasnip.lsp_expand(args.body)
-        end,
+        expand = function(args) luasnip.lsp_expand(args.body) end,
       },
       mapping = cmp.mapping.preset.insert({
         ["<Tab>"] = cmp.mapping(function(fallback)
@@ -56,18 +56,18 @@ return {
         ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
         ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
         ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-        ["<C-e>"] = cmp.mapping {
+        ["<C-e>"] = cmp.mapping({
           i = cmp.mapping.abort(),
           c = cmp.mapping.close(),
-        },
+        }),
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
       }),
       sources = cmp.config.sources({
-        { name = "nvim_lsp" },   -- language servers
-        { name = 'nvim_lsp_signature_help'},  -- display function signatures with current parameter emphasized
+        { name = "nvim_lsp" }, -- language servers
+        { name = "nvim_lsp_signature_help" }, -- display function signatures with current parameter emphasized
         { name = "luasnip" },
         { name = "buffer" },
-        { name = 'path' },        -- file paths
+        { name = "path" }, -- file paths
       }),
       experimental = {
         ghost_text = false,

@@ -73,9 +73,7 @@ end
 function M.is_fugitive_buf(bufnr)
   bufnr = bufnr or 0
   local name = vim.api.nvim_buf_get_name(bufnr) or ""
-  if name:match("^fugitive://") then
-    return true
-  end
+  if name:match("^fugitive://") then return true end
   -- Extra safety: many fugitive views are 'nofile'
   local bt = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
   return bt == "nofile" and name:find("/%.git/") ~= nil
