@@ -41,17 +41,17 @@ return {
         word_diff = false,
         current_line_blame = false,
 
-        on_attach = function(bufnr)
-          -- Skip attaching in diff mode
-          if vim.wo.diff then return end
-
-          local map = function(mode, lhs, rhs, desc)
-            vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
-          end
-
-          map("n", "]c", function() require("gitsigns").next_hunk() end, "Next Git hunk")
-          map("n", "[c", function() require("gitsigns").prev_hunk() end, "Prev Git hunk")
-        end,
+        -- on_attach = function(bufnr)
+        --   -- Skip attaching in diff mode
+        --   if vim.wo.diff then return end
+        --
+        --   local map = function(mode, lhs, rhs, desc)
+        --     vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+        --   end
+        --
+        --   map("n", "]c", function() require("gitsigns").next_hunk() end, "Next Git hunk")
+        --   map("n", "[c", function() require("gitsigns").prev_hunk() end, "Prev Git hunk")
+        -- end,
       })
     end,
   },

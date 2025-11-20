@@ -4,19 +4,21 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("conform").setup({
-        -- Automatically format on save
-        format_on_save = {
-          lsp_fallback = true,
-          timeout_ms = 500,
-        },
+        -- -- Automatically format on save
+        -- format_on_save = {
+        --   lsp_fallback = true,
+        --   timeout_ms = 500,
+        -- },
 
         -- Formatter config per filetype
         formatters_by_ft = {
           bash = { "shfmt" },
-          sh = { "shfmt" },
+          html = { "prettierd" },
+          -- yaml = { "prettierd" },
           lua = { "stylua" },
           python = { "ruff" },
           rust = { "rustfmt" },
+          sh = { "shfmt" },
         },
 
         -- Optionally override formatters
@@ -32,7 +34,7 @@ return {
       -- Normal mode keymap: format the whole buffer
       vim.keymap.set(
         "n",
-        "<leader>f",
+        "<leader>ff",
         function()
           require("conform").format({
             lsp_fallback = true,
@@ -45,7 +47,7 @@ return {
       -- Visual mode keymap: format selection
       vim.keymap.set(
         "v",
-        "<leader>f",
+        "<leader>ff",
         function()
           require("conform").format({
             lsp_fallback = true,

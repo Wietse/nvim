@@ -2,6 +2,7 @@
 local servers = {
   "bashls",
   "dockerls",
+  "htmlls",
   "jsonls",
   "lua_ls",
   "marksman",
@@ -48,37 +49,5 @@ vim.lsp.util.open_floating_preview = (function(orig)
     return orig(contents, syntax, opts, ...)
   end
 end)(vim.lsp.util.open_floating_preview)
-
--- -- Shared on_attach callback for all LSPs
--- local function on_attach(client, bufnr)
---   local map = function(mode, lhs, rhs, desc)
---     vim.keymap.set(mode, lhs, rhs, {
---       buffer = bufnr,
---       silent = true,
---       noremap = true,
---       desc = desc,
---     })
---   end
---
---   map("n", "gd", vim.lsp.buf.definition, "Go to Definition")
---   map("n", "gr", vim.lsp.buf.references, "Go to References")
---   map("n", "gi", vim.lsp.buf.implementation, "Go to Implementation")
---   map("n", "K", vim.lsp.buf.hover, "Hover Documentation")
---   map("n", "<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
---   map("n", "<leader>a", vim.lsp.buf.code_action, "Code Action")
---   -- map("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
---
---   vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
--- end
-
--- -- Call each LSP module, passing shared on_attach
--- for _, server in ipairs(servers) do
---   local ok, mod = pcall(require, "lsp." .. server)
---   if not ok then
---     vim.notify("[lsp] Failed to load server: " .. server, vim.log.levels.ERROR)
---   elseif type(mod) == "function" then
---     mod(on_attach)
---   end
--- end
 
 vim.lsp.enable(servers)

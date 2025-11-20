@@ -16,6 +16,6 @@ return {
     "javascriptreact",
     "javascript.jsx",
   },
-  root_markers = { "package.json", "tsconfig.json", ".git" },
+  root_markers = { "tsconfig.json", ".git" },
   on_attach = utils.on_attach,
 }

@@ -10,7 +10,7 @@ return {
     { "<C-p>", "<cmd>lua require'telescope.builtin'.find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>", desc = "Find Files" },
     { "\\", "<cmd>Telescope live_grep<CR>", desc = "Find a string" },
     -- { "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "Help" },
-    -- { "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "Find keymaps" },
+    { "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "Find keymaps" },
     -- { "<leader>fb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
     { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "List open buffers" },
     { "<leader>fg", "<cmd>Telescope git_status<cr>", desc = "Git status" },
