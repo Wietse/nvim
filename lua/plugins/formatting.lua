@@ -17,7 +17,7 @@ return {
           -- yaml = { "prettierd" },
           lua = { "stylua" },
           python = { "ruff" },
-          rust = { "rustfmt" },
+          -- rust: handled by rustaceanvim (rust-analyzer calls rustfmt)
           sh = { "shfmt" },
         },
 
