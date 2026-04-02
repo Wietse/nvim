@@ -11,10 +11,8 @@ return {
   filetypes = {
     "typescript",
     "typescriptreact",
-    "typescript.tsx",
     "javascript",
     "javascriptreact",
-    "javascript.jsx",
   },
   root_markers = { "tsconfig.json", ".git" },
   on_attach = utils.on_attach,

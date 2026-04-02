@@ -80,6 +80,11 @@ function M.is_fugitive_buf(bufnr)
 end
 
 -- Shared on_attach callback for all LSPs
+--
+-- Neovim 0.12 provides default keymaps for common LSP actions:
+--   grn = rename, gra = code action, grr = references,
+--   gri = implementation, grt = type definition, K = hover
+-- The mappings below only add Telescope-based and diagnostic keymaps.
 ---@diagnostic disable-next-line:unused-local
 function M.on_attach(client, bufnr)
   local map = function(mode, lhs, rhs, desc)
@@ -92,12 +97,6 @@ function M.on_attach(client, bufnr)
   end
 
   map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", "Show Definitions")
-  map("n", "gD", "<cmd>Telescope lsp_type_definitions<CR>", "Show Type Definitions")
-  map("n", "gr", "<cmd>Telescope lsp_references<CR>", "Show References")
-  map("n", "gi", vim.lsp.buf.implementation, "Go to Implementation")
-  map("n", "K", vim.lsp.buf.hover, "Hover Documentation")
-  map("n", "<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
-  map("n", "<leader>a", vim.lsp.buf.code_action, "Code Action")
   map("n", "gF", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
   map(
     "n",

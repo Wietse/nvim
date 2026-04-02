@@ -7,6 +7,10 @@ local C = require("config.constants")
 local g = vim.g
 local opt = vim.opt
 
+-- Disable providers (silence :checkhealth warning)
+g.loaded_perl_provider = 0
+g.loaded_ruby_provider = 0
+
 opt.mouse = "a" -- Enable mouse support
 opt.backup = false -- don't make a backup before writing a file
 opt.swapfile = false -- don't use a swapfile for the buffer
@@ -70,35 +74,4 @@ opt.listchars = {
 } -- show these chars for <Tab> and for trailing whitespace
 opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkon100"
 
--- Disable builtin plugins
-local disabled_built_ins = {
-  "2html_plugin",
-  "getscript",
-  "getscriptPlugin",
-  "gzip",
-  "logipat",
-  "netrw",
-  "netrwPlugin",
-  "netrwSettings",
-  "netrwFileHandlers",
-  "matchit",
-  "tar",
-  "tarPlugin",
-  "rrhelper",
-  "spellfile_plugin",
-  "vimball",
-  "vimballPlugin",
-  "zip",
-  "zipPlugin",
-  "tutor",
-  "rplugin",
-  "synmenu",
-  "optwin",
-  "compiler",
-  "bugreport",
-  "ftplugin",
-}
-
-for _, plugin in pairs(disabled_built_ins) do
-  g["loaded_" .. plugin] = 1
-end
+-- Built-in plugins are disabled via lazy.nvim's performance.rtp.disabled_plugins

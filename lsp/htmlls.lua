@@ -8,7 +8,7 @@ if not binary then return end
 
 return {
   cmd = { binary, "--stdio" },
-  filetypes = { "html", "templ" },
+  filetypes = { "html" },
   root_markers = { "package.json", ".git" },
   on_attach = utils.on_attach,
   settings = {},

@@ -12,7 +12,7 @@ local default_schemas = {
 
 return {
   cmd = { binary, "--stdio" },
-  filetypes = { "yaml", "yml" },
+  filetypes = { "yaml" },
   root_markers = { ".git" },
   on_attach = utils.on_attach,
   settings = {
